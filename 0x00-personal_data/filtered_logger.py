@@ -5,6 +5,9 @@
 import re
 from typing import List
 import logging
+import os
+import mysql.connector
+from mysql.connector import Error
 
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
@@ -51,3 +54,24 @@ def get_logger() -> logging.Logger:
     logger.propagate = False
 
     return logger
+
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    '''returns a connector to the database'''
+    user_name = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
+    pass_wd = os.getenv('PERSONAL_DATA_DB_PASSWORD', '')
+    host_name = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
+    db_name = os.getenv('PERSONAL_DATA_DB_NAME')
+
+    connection = None
+    try:
+        connection = mysql.connector.connect(
+                host=host_name,
+                user=user_name,
+                passwd=pass_wd,
+                database=db_name
+        )
+    except Error as e:
+        print(f"{e}")
+
+    return connection
