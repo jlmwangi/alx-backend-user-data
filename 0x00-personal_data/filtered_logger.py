@@ -20,6 +20,7 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
+        '''format method based on FORMAT'''
         original_msg = record.getMessage()
         record.msg = filter_datum(self.fields, self.REDACTION, original_msg,
                                   self.SEPARATOR)
@@ -28,6 +29,7 @@ class RedactingFormatter(logging.Formatter):
 
 def filter_datum(fields: List[str], redaction: str,
                  message: str, separator: str) -> str:
+    '''return unclear log message'''
     for field in fields:
         message = re.sub(r"({}=)([^{}]+)".format(re.escape(field),
                          re.escape(separator)), r"\1" + redaction, message)
