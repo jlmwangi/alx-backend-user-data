@@ -72,3 +72,25 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     )
 
     return connection
+
+
+def main() -> None:
+    '''obtains a db connection and retrieves all rows in users table'''
+    db_conn = get_db()
+    cursor = db_conn.cursor()
+    cursor.execute('SELECT * FROM users;')
+
+    fields = PII_FIELDS
+    log_record = get_logger()
+    formatter = RedactingFormatter(fields)
+
+    for row in cursor:
+        formatted_record = formatter.format(row)
+        log_record.info(formatted_record)
+
+    cursor.close()
+    db_conn.close()
+
+
+if __name__ == "__main__":
+    main()
