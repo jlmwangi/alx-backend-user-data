@@ -64,14 +64,11 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     db_name = os.getenv('PERSONAL_DATA_DB_NAME')
 
     connection = None
-    try:
-        connection = mysql.connector.connect(
-                host=host_name,
-                user=user_name,
-                passwd=pass_wd,
-                database=db_name
-        )
-    except Error as e:
-        print(f"{e}")
-
+    connection = mysql.connector.connect(
+            host=host_name,
+            user=user_name,
+            password=pass_wd,
+            database=db_name
+    )
+    
     return connection
