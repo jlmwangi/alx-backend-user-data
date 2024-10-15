@@ -34,7 +34,7 @@ def raise401() -> str:
 
 
 @app_views.route('/forbidden/', strict_slashes=False)
-def raise401() -> str:
+def raise403() -> str:
     """ GET /api/v1/forbidden
     Return the 403 error """
     return abort(403)
