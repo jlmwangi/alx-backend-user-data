@@ -13,12 +13,8 @@ class Auth:
         if path is None:
             return True
         normalized_path = path.rstrip('/')  # remove trailing slashes
-        excluded_path_list = []
-
-        #  normalize each excluded path
-        for excluded_path in excluded_paths:
-            normalized_excluded_path = excluded_path.rstrip('/')  # remove
-            excluded_path_list.append(normalized_excluded_path)
+        excluded_path_list = [excluded_path.rstrip('/')
+                              for excluded_path in excluded_paths]
 
         if normalized_path in excluded_path_list:
             return False
