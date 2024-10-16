@@ -12,6 +12,8 @@ class Auth:
         '''Define which routes dont need authentication'''
         if path is None:
             return True
+        if excluded_paths is None or excluded_paths == "":
+            return True
         normalized_path = path.rstrip('/')  # remove trailing slashes
         excluded_path_list = [excluded_path.rstrip('/')
                               for excluded_path in excluded_paths]
