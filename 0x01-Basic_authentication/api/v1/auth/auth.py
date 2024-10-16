@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+"""file to implement an authentication class"""
 
 from flask import request
 from models.user import User
