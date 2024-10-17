@@ -6,3 +6,4 @@ from auth import Auth
 
 class BasicAuth(Auth):
     '''class inheriting from auth'''
+    return
