@@ -77,9 +77,11 @@ class BasicAuth(Auth):
         #  get auth header using method from base class
         auth_header = self.authorization_header(request)
         #  extract auth header
-        extracted_header = self.extract_base64_authorization_header(auth_header)
+        extracted_header = \
+            self.extract_base64_authorization_header(auth_header)
         #  decode authorization header
-        decoded_header = self.decode_base64_authorization_header(extracted_header)
+        decoded_header = \
+            self.decode_base64_authorization_header(extracted_header)
         #  extract user credentials from decoded string
         email, password = self.extract_user_credentials(decoded_header)
         #  return user instance
