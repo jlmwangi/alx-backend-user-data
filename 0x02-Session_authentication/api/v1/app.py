@@ -31,14 +31,16 @@ else:
 def filter_request():
     '''filter requests to know which requires authen and which doesnt'''
     path_list = ['/api/v1/status/',
-                 '/api/v1/unauthorized/', '/api/v1/forbidden/']
+                 '/api/v1/unauthorized/', '/api/v1/forbidden/',
+                 '/api/v1/auth_session/login/']
     if auth is None:
         return
     # if request path doesnt require authenticaton do nothing
     if not auth.require_auth(request.path, path_list):
         return
     # if auth header is missing
-    if auth.authorization_header(request) is None:
+    if auth.authorization_header(request) is None \
+            and auth.session_cookie(request) is None:
         abort(401)
     if auth.current_user(request) is None:
         abort(403)
