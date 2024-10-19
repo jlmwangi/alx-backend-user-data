@@ -14,10 +14,10 @@ def session_login():
     password = request.form.get('password')
 
     if email is None or email == "":
-        return jsonify({ "error": "email missing" }), 400
+        return jsonify({"error": "email missing"}), 400
 
     if password is None or password == "":
-        return jsonify({ "error": "password missing" }), 400
+        return jsonify({"error": "password missing"}), 400
 
     users = User.search({"email": email})
     if not users:  # if no user found
@@ -32,7 +32,9 @@ def session_login():
     from api.v1.app import auth
     session_id = auth.create_session(user.id)
 
-    response = make_response(user.to_json())  # return dict representation of user
-    response.set_cookie(os.getenv('SESSION_NAME'), session_id)  # use value of the env var as cookie name
+    response = make_response(user.to_json())
+    # return dict representation of user
+    response.set_cookie(os.getenv('SESSION_NAME'), session_id)
+    # use value of the env var as cookie name
 
     return response
