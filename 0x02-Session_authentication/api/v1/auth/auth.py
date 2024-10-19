@@ -7,7 +7,7 @@ from typing import List, TypeVar
 import os
 
 
-my_session_id = os.getenv('SESSION_NAME')
+_my_session_id = os.getenv('SESSION_NAME')
 
 
 class Auth:
@@ -40,5 +40,5 @@ class Auth:
 
     def session_cookie(self, request=None):
         '''returns a cookie value from a request'''
-        my_session_id = os.getenv('SESSION_NAME')
-        return request.cookies.get(my_session_id)
+        _my_session_id = os.getenv('SESSION_NAME')
+        return request.cookies.get(_my_session_id)
