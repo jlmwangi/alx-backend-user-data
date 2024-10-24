@@ -86,5 +86,8 @@ class Auth:
         '''updates session id to none ie destroys a session'''
         db = self._db
 
-        db.update_user(user_id, session_id=None)
-        return None
+        try:
+            db.update_user(user_id, session_id=None)
+            return None
+        except ValueError:
+            return
