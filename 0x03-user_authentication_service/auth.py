@@ -101,7 +101,7 @@ class Auth:
         try:
             user = db.find_user_by(email=email)
             if user:
-                reset_token = _generate_uuid4()
+                reset_token = _generate_uuid()
                 db.update_user(user.id, reset_token=reset_token)
                 return reset_token
             #  raise ValueError
