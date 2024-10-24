@@ -59,6 +59,7 @@ def logout():
     except NoResultFound:
         abort(403)
 
+
 @app.route('/profile', methods=['GET'])
 def profile():
     '''confirm user profile'''
