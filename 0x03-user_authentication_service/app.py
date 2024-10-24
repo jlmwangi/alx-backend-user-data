@@ -4,6 +4,7 @@
 from flask import Flask, jsonify, request, abort, make_response, url_for
 from flask import redirect
 from auth import Auth
+from sqlalchemy.orm.exc import NoResultFound
 
 app = Flask(__name__)
 
@@ -54,7 +55,7 @@ def logout():
         if user_from_sessionid:
             AUTH.destroy_session(user_from_sessionid.id)
             return redirect(url_for('get_route'))
-        #  abort(403)
+        abort(403)
     except NoResultFound:
         abort(403)
 
