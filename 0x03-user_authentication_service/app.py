@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 '''create a flask App'''
 
-from flask import Flask, jsonify, request, abort, make_response
+from flask import Flask, jsonify, request, abort, make_response, url_for
+from flask import redirect
 from auth import Auth
 
 app = Flask(__name__)
@@ -41,6 +42,21 @@ def login():
         resp.set_cookie("session_id", sess_id)
         return resp
     abort(401)
+
+
+@app.route('/sessions', methods=['DELETE'])
+def logout():
+    '''logout by destroying a session'''
+    session_id = request.cookies.get('session_id')
+    #  find user with requested sesh id
+    try:
+        user_from_sessionid = AUTH.get_user_from_session_id(session_id)
+        if user_from_sessionid:
+            Auth.destroy_session(user_from_sessionid.id)
+            redirect(url_for('get_route'))
+        #  abort(403)
+    except NoResultFound:
+        abort(403)
 
 
 if __name__ == "__main__":
