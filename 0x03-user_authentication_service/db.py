@@ -42,10 +42,6 @@ class DB:
         session.add(new_user)
         session.commit()
 
-        user_id = new_user.id
-
-        session.close()
-
-        new_user.id = user_id
+        #  session.close()
 
         return new_user
