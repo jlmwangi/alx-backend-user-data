@@ -87,7 +87,9 @@ class Auth:
         db = self._db
 
         try:
-            db.update_user(user_id, session_id=None)
+            user = db.find_user_by(id=user_id)
+
+            db.update_user(user.id, session_id=None)
             return None
-        except ValueError:
-            return
+        except NoResultFound:
+            return None
