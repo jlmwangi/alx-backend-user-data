@@ -78,6 +78,8 @@ def profile():
 def get_reset_password_token():
     '''responds to post request to reset password'''
     email = request.form.get('email')
+    if not email:
+        abort(403)
 
     try:
         reset_token = AUTH.get_reset_password_token(email)
